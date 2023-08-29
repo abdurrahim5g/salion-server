@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { client } = require("../index");
 
-router.get("/", (req, res) => res.send("All services"));
-
 /**
  *
  * Upload service image
@@ -16,6 +14,17 @@ const run = async () => {
     router.post("/", async (req, res) => {
       const serviceDocs = req.body;
       const result = await serviceCollection.insertOne(serviceDocs);
+      res.send(result);
+    });
+
+    /**
+     *
+     * GET All services with API
+     * ============================
+     * ******************************/
+    router.get("/", async (req, res) => {
+      const query = {};
+      const result = await serviceCollection.find(query).toArray();
       res.send(result);
     });
   } finally {
