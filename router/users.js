@@ -26,6 +26,18 @@ const run = async () => {
     // User POST API
     router.post("/", async (req, res) => {
       const user = req.body;
+
+      const userCount = await userCollections.countDocuments({
+        email: user.email,
+      });
+
+      if (userCount > 0) {
+        return res.send({
+          acknowledged: true,
+          message: "User already inserted.",
+        });
+      }
+
       const result = await userCollections.insertOne(user);
       res.send(result);
     });
