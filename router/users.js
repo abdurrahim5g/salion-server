@@ -41,6 +41,23 @@ const run = async () => {
       const result = await userCollections.insertOne(user);
       res.send(result);
     });
+
+    // User make admin
+    router.patch("/make-admin", async (req, res) => {
+      const query = req.query;
+      const updateDoc = {
+        $set: {
+          role: "admin",
+        },
+      };
+      const options = { upsert: true };
+      const updateRole = await userCollections.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(updateRole);
+    });
   } finally {
     // Finally will always execute
   }
