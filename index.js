@@ -29,12 +29,14 @@ module.exports = { client };
  * Require all router from external file
  */
 const useServices = require("./router/services");
+const useUsers = require("./router/users");
 
 /**
  *
  * Create API from external file
  */
 app.use("/services", useServices);
+app.use("/users", useUsers);
 
 /**
  *
